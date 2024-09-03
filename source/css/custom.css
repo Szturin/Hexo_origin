@@ -1,0 +1,54 @@
+/* 页脚与头图透明 */
+#footer {
+    background: transparent !important;
+  }
+  #page-header {
+    background: transparent !important;
+  }
+
+/* 首页文章卡片 */
+#recent-posts > .recent-post-item{
+  background:rgba(255, 255, 255, 0.5)!important;
+}
+/* 首页侧栏卡片 */
+.card-widget{
+background:rgba(255, 255, 255, 0.95)!important;
+}  
+
+  /* 文章页面正文背景 */
+  div#post{
+  background: rgba(255, 255, 255, 0.95);
+  }
+  /* 分页页面 */
+  div#page{
+  background: rgba(255, 255, 255, 0.95);
+  }
+  /* 归档页面 */
+  div#archive{
+  background: rgba(255, 255, 255, 0.95);
+  }
+  /* 标签页面 */
+  div#tag{
+  background: rgba(255, 255, 255, 0.95);
+  }
+  /* 分类页面 */
+  div#category{
+  background: rgba(255, 255, 255, 0.95);
+  }
+  
+  /* 白天模式遮罩透明 */
+  #footer::before {
+    background: transparent !important;
+  }
+  #page-header::before {
+    background: transparent !important;
+  }
+  
+  /* 夜间模式遮罩透明 */
+  [data-theme="dark"] #footer::before {
+    background: transparent !important;
+  }
+  [data-theme="dark"] #page-header::before {
+    background: transparent !important;
+  }
+
