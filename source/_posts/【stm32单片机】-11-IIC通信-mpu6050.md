@@ -181,7 +181,7 @@ eg: mpu6050的从机地址：0x68 ，IIC时序中发送的第一个字节，高�
 >
 > ![image-20240525211535797](【stm32单片机】-11-IIC通信-mpu6050/image-20240525211535797.png)
 
-> 通信接口：用于和MPU6050拓展设备进行通信
+> xxxxxxxxxx python script_name.py --train_data_dir "path/to/train_data" --test_data_dir "path/to/test_data" --img_height 128 --img_width 128 --batch_size 64 --epochs 15python
 >
 > ​		可以拓展连接磁力计
 >
