@@ -23,7 +23,7 @@ categories:
 
 **==YOLO版本：YOLOV5 7.0==**
 
-## 1. 数据集的准备
+## xxxxxxxxxx $ tags: -数字电路与VHDL设计"bash 
 
 准备好目标模型对应的图片数据集，使用labelme命令，启动数据集打标工具
 

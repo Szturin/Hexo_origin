@@ -22,12 +22,8 @@ categories:
     - STM32
 ---
 
-
-
 # 库函数解释
 
-> xxxxxxxxxx $ tags: -数字电路与VHDL设计"bash 
->
 > void RCC_ADCCLKConfig(uint32_t RCC_PCLK2);
 >
 > **恢复缺省配置**
@@ -105,10 +101,10 @@ categories:
 > void ADC_RegularChannelConfig(ADC_TypeDef* ADCx, uint8_t ADC_Channel, uint8_t Rank, uint8_t ADC_SampleTime);
 >
 > - ADCx
-> - ADC_Channel：指定的通道
+>- ADC_Channel：指定的通道
 > - Rank：序列的位置
 > - ADC_SampleTime：指定通道的采样时间
->
+> 
 > **ADC外部触发转换控制（是否允许外部触发转换）**
 >
 > void ADC_ExternalTrigConvCmd(ADC_TypeDef* ADCx, FunctionalState NewState);
