@@ -1,7 +1,7 @@
 [submodule "themes/butterfly"]
     path = themes/butterfly
-    url = git@github.com:Szturin/Hexo_origin.git
+    url = https://github.com/Szturin/Hexo_origin
 
 [submodule "themes/hexo-theme-matery"]
     path = themes/hexo-theme-matery
-    url = git@github.com:Szturin/Hexo_origin.git
+    url = https://github.com/Szturin/Hexo_origin
