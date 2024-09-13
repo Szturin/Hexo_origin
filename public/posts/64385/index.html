@@ -1,0 +1,344 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【stm32单片机】[6]输入捕获和输出比较 | Turin's Blog</title><meta name="author" content="Szturin"><meta name="copyright" content="Szturin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基本概念 xxxxxxxxxx&amp;nbsp;$ tags: -数字电路与VHDL设计&quot;bash 另外它们的CH1到CH4，4个通道的引脚，也是公用的 所以对于同一个定时器，输入捕获和输出比较只能用其中一个。  一、输出比较   根据CNT和CCR的大小关系，从通道引脚输出高低电平  二、输入捕获   输入滤波器：可以对毛刺信号进行滤波 交叉输入的作用？ TRC? CNT计数器是由内部的标准时钟进行">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【stm32单片机】[6]输入捕获和输出比较">
+<meta property="og:url" content="https://szturin.github.io/posts/64385/index.html">
+<meta property="og:site_name" content="Turin&#39;s Blog">
+<meta property="og:description" content="基本概念 xxxxxxxxxx&amp;nbsp;$ tags: -数字电路与VHDL设计&quot;bash 另外它们的CH1到CH4，4个通道的引脚，也是公用的 所以对于同一个定时器，输入捕获和输出比较只能用其中一个。  一、输出比较   根据CNT和CCR的大小关系，从通道引脚输出高低电平  二、输入捕获   输入滤波器：可以对毛刺信号进行滤波 交叉输入的作用？ TRC? CNT计数器是由内部的标准时钟进行">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://szturin.github.io/img/blog_cover/stm32.jpg">
+<meta property="article:published_time" content="2024-03-17T04:39:49.000Z">
+<meta property="article:modified_time" content="2024-09-03T04:23:18.722Z">
+<meta property="article:author" content="Szturin">
+<meta property="article:tag" content="单片机">
+<meta property="article:tag" content="stm32单片机">
+<meta property="article:tag" content="输入捕获">
+<meta property="article:tag" content="输出比较">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://szturin.github.io/img/blog_cover/stm32.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://szturin.github.io/posts/64385/index.html"><link rel="preconnect" href="//unpkg.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://unpkg.com/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【stm32单片机】[6]输入捕获和输出比较',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-03 12:23:18'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Turin's Blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">65</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/notebook/"><i class="fa-fw comment-alt-smile"></i><span> 笔记</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/blog_cover/stm32.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Turin's Blog"><span class="site-name">Turin's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/notebook/"><i class="fa-fw comment-alt-smile"></i><span> 笔记</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【stm32单片机】[6]输入捕获和输出比较<a class="post-edit-link" href="null_posts/【stm32单片机】-6-输入捕获和输出比较.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-17T04:39:49.000Z" title="发表于 2024-03-17 12:39:49">2024-03-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-03T04:23:18.722Z" title="更新于 2024-09-03 12:23:18">2024-09-03</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/STM32/">STM32</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【stm32单片机】[6]输入捕获和输出比较"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="基本概念"><a class="markdownIt-Anchor" href="#基本概念"></a> 基本概念</h1>
+<p>xxxxxxxxxx&nbsp;$ tags: -数字电路与VHDL设计"bash</p>
+<p>另外它们的CH1到CH4，4个通道的引脚，也是公用的</p>
+<p>所以对于同一个定时器，输入捕获和输出比较只能用其中一个。</p>
+<h2 id="一-输出比较"><a class="markdownIt-Anchor" href="#一-输出比较"></a> 一、输出比较</h2>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/64385/image-20240317124437632.png" class="" title="image-20240317124437632">
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/64385/image-20240317124510956.png" class="" title="image-20240317124510956">
+<p><strong>根据CNT和CCR的大小关系，从通道引脚输出高低电平</strong></p>
+<h2 id="二-输入捕获"><a class="markdownIt-Anchor" href="#二-输入捕获"></a> 二、输入捕获</h2>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/64385/image-20240317124716864.png" class="" title="image-20240317124716864">
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/64385/image-20240317124815682.png" class="" title="image-20240317124815682">
+<p>输入滤波器：可以对毛刺信号进行滤波</p>
+<p>交叉输入的作用？</p>
+<p>TRC?</p>
+<p>CNT计数器是由内部的标准时钟进行驱动的，可以用于测量外部检测两个上升沿的时间间隔，</p>
+<p>所以需要在检测到一个上升沿过后，清零CNT，这样在第二次上升沿后，CNT值就是测周法的N，可以通过主从触发模式，自动完成。</p>
+<p><strong>总结：</strong></p>
+<p>输入捕获类似于外部中断。都是检测边沿，然后执行相应的动嘴，而在输入捕获中。检测到指定电平跳变后，CNT的值所存到CCR中。</p>
+<ul>
+<li>
+<p>输出比较。引脚是输出端口，根据CNT和CCR的大小关系执行输出的动作。</p>
+</li>
+<li>
+<p>输入捕获。引脚是输入端口，接收到输入信号，执行锁存的动作。</p>
+</li>
+</ul>
+<p><strong>#主从触发模式：</strong></p>
+<p>将主从触发模式和PWMI模式相结合，可以让硬件自动测量频率和占空比，软件无需进行干预。</p>
+<h2 id="三-频率测量"><a class="markdownIt-Anchor" href="#三-频率测量"></a> 三、频率测量</h2>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/64385/image-20240317125647320.png" class="" title="image-20240317125647320">
+<p><strong>PS：STM32测频率只能测量数字信号，若测量正选波，可以用运放电路搭建一个比较器。若测量的信号电压较高，需要考虑隔离的问题，比如隔离放大器，电压互感器等元件。总而言之，要用STM32测量频率，只能用数字信号，高电平3.3V，低电平0V</strong></p>
+<p><strong>#区别</strong></p>
+<ul>
+<li>
+<p>测频法：规定时间，记录上升沿次数，<mark>适合测量高频信号</mark>。在计次N过少时，误差会比较大。</p>
+<p>​		测频法自带均值滤波，得到的其实是平均频率。</p>
+</li>
+<li>
+<p>测周法：从待测频率的第一个上升沿开始，以一个标准的频率计次，记录计数器的次数，直到检测到待测频率信号的第二个上升沿。<mark>适合测量低频信号</mark>，低频信号，周期长，计次多，有利于减小误差。</p>
+<p>一般情况下，待测信号几百几千HZ以上，测周法更新更快，又因为测周法只测量一个周期，所以结果容易收到噪声的影响，波动较大。</p>
+</li>
+<li>
+<p>两种方法都会出现正负1误差</p>
+</li>
+</ul>
+<p>#<strong>中界频率</strong></p>
+<ul>
+<li>用于界定选用测频法还是测周法的频率</li>
+</ul>
+<h2 id="四-输入捕获通道"><a class="markdownIt-Anchor" href="#四-输入捕获通道"></a> 四、输入捕获通道</h2>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/64385/image-20240317133236546.png" class="" title="image-20240317133236546">
+<p><mark>fDTS是滤波器的采样时钟来源。TI1是输入信号，TI1F是滤波后的信号，CCMR1寄存器中的ICF位可以控制滤波器的参数</mark></p>
+<p>​														ICF相关定义</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/64385/image-20240317133728716.png" class="" title="image-20240317133728716">
+<p>滤波之后的信号通过后续的边沿检测器，并且可以通过CCIP选择极性。最终得到TI1FP1的触发信号，进入通道1后续的捕获电路。同样的，通道2也是一样的流程，不过图中省略了。</p>
+<p>CC1E位，控制输出使能或失能。</p>
+<p><strong>如何自动清零CNT？</strong></p>
+<h3 id="主从触发模式"><a class="markdownIt-Anchor" href="#主从触发模式"></a> 主从触发模式</h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/64385/image-20240317134635166.png" class="" title="image-20240317134635166">
+<ul>
+<li>
+<p>主模式可以将定时器内部的信号，映射到TRGO引脚，用于触发别的外设</p>
+</li>
+<li>
+<p>从模式接收其他外设或者自身外设的一些信号，用于控制自身定时器的运行。</p>
+</li>
+</ul>
+<p><strong>这里将TI1FP1作为触发源，从模式执行Reset操作，这样就可以实现CNT自动清零。</strong></p>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<h3 id="输入捕获基本结构"><a class="markdownIt-Anchor" href="#输入捕获基本结构"></a> 输入捕获基本结构</h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/64385/image-20240317135641144.png" class="" title="image-20240317135641144">
+<p>这个结构只使用了一个通道，只能用于测量频率。</p>
+<p>先转运CNT，再对CNT进行清零。</p>
+<p>使用从模式自动清零CNT，只能用通道1和通道2。</p>
+<h3 id="pwmi基本结构"><a class="markdownIt-Anchor" href="#pwmi基本结构"></a> PWMI基本结构</h3>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/64385/image-20240317140209540.png" class="" title="image-20240317140209540">
+<p>开始，第一个上升沿，CCR1捕获并且清零CNT，CNT++。第一个下降沿，CCR2捕获CNT，但不会执行CNT清零。第二个上升沿，CCR1捕获CNT，同时CNT清零。</p>
+<p>这样CCR1值就是整个周期的计数值，CCR2就是高电平期间的计数值。这样可以同时得到PWM的频率和占空比。</p>
+<p>这里也可以配置两个通道同时捕获第二个引脚的输入，使用TI2FP1和TI2FP2两个引脚。</p>
+<h1 id="代码部分"><a class="markdownIt-Anchor" href="#代码部分"></a> 代码部分</h1>
+<blockquote>
+<hr>
+<p><strong>单独修改PSR值</strong></p>
+<p>void TIM_PrescalerConfig(TIM_TypeDef* TIMx, uint16_t Prescaler, uint16_t TIM_PSCReloadMode)</p>
+<ul>
+<li>TIMx：定时器</li>
+<li>Prescaler：PSR值</li>
+<li>TIM_PSCReloadMode：指定定时器预分频器的重装模式
+<ul>
+<li>@arg TIM_PSCReloadMode_Update: The Prescaler is loaded at the update event. 在更新事件中 重装
+<ul>
+<li>
+<pre><code>@arg TIM_PSCReloadMode_Immediate: The Prescaler is loaded immediately. 立即重装
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>输入捕获</strong></p>
+<p>void TIM_ICInit(TIM_TypeDef* TIMx, TIM_ICInitTypeDef* TIM_ICInitStruct);</p>
+<p>输入捕获函数，4个通道共用一个函数</p>
+<hr>
+<p><strong>给输入捕获结构体赋初值</strong></p>
+<p>void TIM_ICStructInit(TIM_ICInitTypeDef* TIM_ICInitStruct);</p>
+<hr>
+<p><strong>选择输入触发源TIGI</strong></p>
+<p>void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSource);</p>
+<p>配置从模式的输入触发源</p>
+<hr>
+<p><strong>选择输出触发源TRGO</strong></p>
+<p>void TIM_SelectInputTrigger(TIM_TypeDef* TIMx, uint16_t TIM_InputTriggerSource);</p>
+<p>配置主模式的输出触发源</p>
+<hr>
+<p><strong>配置从模式</strong></p>
+<p>void TIM_SelectSlaveMode(TIM_TypeDef* TIMx, uint16_t TIM_SlaveMode);</p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/64385/image-20240317150206255.png" class="" title="image-20240317150206255">
+<p><mark>ps:这三个从模式是给编码器接口用的，会有另外的函数进行配置</mark></p>
+<hr>
+<p><strong>配置通道1234的定时器</strong></p>
+<p>void TIM_SetIC1Prescaler(TIM_TypeDef* TIMx, uint16_t TIM_ICPSC);<br>
+void TIM_SetIC2Prescaler(TIM_TypeDef* TIMx, uint16_t TIM_ICPSC);<br>
+void TIM_SetIC3Prescaler(TIM_TypeDef* TIMx, uint16_t TIM_ICPSC);<br>
+void TIM_SetIC4Prescaler(TIM_TypeDef* TIMx, uint16_t TIM_ICPSC);</p>
+<hr>
+<p><strong>读取4个通道的CCR</strong></p>
+<p>uint16_t TIM_GetCapture1(TIM_TypeDef* TIMx);<br>
+uint16_t TIM_GetCapture2(TIM_TypeDef* TIMx);<br>
+uint16_t TIM_GetCapture3(TIM_TypeDef* TIMx);<br>
+uint16_t TIM_GetCapture4(TIM_TypeDef* TIMx);</p>
+<p><strong>对于写4个通道CCR的函数</strong></p>
+<p>void TIM_SetCompare1(TIM_TypeDef* TIMx, uint16_t Compare1);<br>
+void TIM_SetCompare2(TIM_TypeDef* TIMx, uint16_t Compare2);<br>
+void TIM_SetCompare3(TIM_TypeDef* TIMx, uint16_t Compare3);<br>
+void TIM_SetCompare4(TIM_TypeDef* TIMx, uint16_t Compare4);</p>
+<p><mark>输入捕获模式下，CCR是只读的，要用GetCapture读出</mark></p>
+<hr>
+<p><strong><mark>TIM_PWMIConfig(TIM3,&amp;TIM_ICInitStructure);//标准库中已将上述注释部分封装好,即会将以及配置号的部分，再配置另外的通道将参数进行相反的设置</mark></strong></p>
+<hr>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://szturin.github.io">Szturin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://szturin.github.io/posts/64385/">https://szturin.github.io/posts/64385/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://szturin.github.io" target="_blank">Turin's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a><a class="post-meta__tags" href="/tags/stm32%E5%8D%95%E7%89%87%E6%9C%BA/">stm32单片机</a><a class="post-meta__tags" href="/tags/%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7/">输入捕获</a><a class="post-meta__tags" href="/tags/%E8%BE%93%E5%87%BA%E6%AF%94%E8%BE%83/">输出比较</a></div><div class="post_share"><div class="social-share" data-image="/img/blog_cover/stm32.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://unpkg.com/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://unpkg.com/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/5903/" title="【蓝桥杯单片机】考点复盘1"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/MCU.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【蓝桥杯单片机】考点复盘1</div></div></a></div><div class="next-post pull-right"><a href="/posts/25039/" title="【蓝桥杯单片机】第九届省赛题"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/MCU.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【蓝桥杯单片机】第九届省赛题</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/37664/" title="【stm32单片机】[7]编码器接口测速"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/stm32.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-20</div><div class="title">【stm32单片机】[7]编码器接口测速</div></div></a></div><div><a href="/posts/5621/" title="【stm32单片机】[11]IIC通信(mpu6050)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-24</div><div class="title">【stm32单片机】[11]IIC通信(mpu6050)</div></div></a></div><div><a href="/posts/10712/" title="【stm32单片机】[9]DMA数据转运"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-22</div><div class="title">【stm32单片机】[9]DMA数据转运</div></div></a></div><div><a href="/posts/19202/" title="【stm32单片机】[10]串口通信"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-20</div><div class="title">【stm32单片机】[10]串口通信</div></div></a></div><div><a href="/posts/56223/" title="【stm32单片机】[8]AD&#x2F;DA转换"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/stm32.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-23</div><div class="title">【stm32单片机】[8]AD&#x2F;DA转换</div></div></a></div><div><a href="/posts/32351/" title="【stm32单片机】[5]定时器控制PWM"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/stm32.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-05</div><div class="title">【stm32单片机】[5]定时器控制PWM</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Szturin</div><div class="author-info__description">保持热爱，奔赴星海</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">65</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Szturin"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">近期学习：1.stm32裸机开发-->rtos 2.python->OpenMv</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text"> 基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E8%BE%93%E5%87%BA%E6%AF%94%E8%BE%83"><span class="toc-number">1.1.</span> <span class="toc-text"> 一、输出比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7"><span class="toc-number">1.2.</span> <span class="toc-text"> 二、输入捕获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E9%A2%91%E7%8E%87%E6%B5%8B%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text"> 三、频率测量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7%E9%80%9A%E9%81%93"><span class="toc-number">1.4.</span> <span class="toc-text"> 四、输入捕获通道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E4%BB%8E%E8%A7%A6%E5%8F%91%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 主从触发模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text"> 总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 输入捕获基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pwmi%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.5.2.</span> <span class="toc-text"> PWMI基本结构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E9%83%A8%E5%88%86"><span class="toc-number">2.</span> <span class="toc-text"> 代码部分</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/56683/" title="【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”"/></a><div class="content"><a class="title" href="/posts/56683/" title="【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”">【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”</a><time datetime="2024-09-09T14:35:16.000Z" title="发表于 2024-09-09 22:35:16">2024-09-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/34487/" title="【Tensorflow】[2] 神经网络搭建"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Tensorflow】[2] 神经网络搭建"/></a><div class="content"><a class="title" href="/posts/34487/" title="【Tensorflow】[2] 神经网络搭建">【Tensorflow】[2] 神经网络搭建</a><time datetime="2024-09-07T17:12:30.000Z" title="发表于 2024-09-08 01:12:30">2024-09-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/46726/" title="【Python基础】[1]Python的基本语法"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Python基础】[1]Python的基本语法"/></a><div class="content"><a class="title" href="/posts/46726/" title="【Python基础】[1]Python的基本语法">【Python基础】[1]Python的基本语法</a><time datetime="2024-09-05T04:58:08.000Z" title="发表于 2024-09-05 12:58:08">2024-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7213/" title="【Git学习】[3]标签管理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Git学习】[3]标签管理"/></a><div class="content"><a class="title" href="/posts/7213/" title="【Git学习】[3]标签管理">【Git学习】[3]标签管理</a><time datetime="2024-09-03T11:02:08.000Z" title="发表于 2024-09-03 19:02:08">2024-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/21302/" title="【Git学习】[2]分支管理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Git学习】[2]分支管理"/></a><div class="content"><a class="title" href="/posts/21302/" title="【Git学习】[2]分支管理">【Git学习】[2]分支管理</a><time datetime="2024-09-03T10:38:38.000Z" title="发表于 2024-09-03 18:38:38">2024-09-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By Szturin</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://unpkg.com/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://unpkg.com/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://unpkg.com/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站采用多线程部署，主线路托管于腾讯云服务器，备用线路托管于Github/Gitee。" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body></html>

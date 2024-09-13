@@ -1,0 +1,344 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>【yolov5】[1]初探目标检测算法--YOLOv5的训练及在地平线RDK X3上的快速部署 | Turin's Blog</title><meta name="author" content="Szturin"><meta name="copyright" content="Szturin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、Windows环境下的模型训练 针对YOLO的模型训练环境配置，Windows端兼容性差于Ubuntu，如果电脑上有Ubuntu系统，建议用Ubuntu系统进行训练（但注意，虚拟机安装的Ubuntu系统无法使用物理GPU进行训练）。 YOLO版本：YOLOV5 7.0  xxxxxxxxxx&amp;nbsp;$ tags: -数字电路与VHDL设计&quot;bash 准备好目标模型对应的图片数据集，使用l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【yolov5】[1]初探目标检测算法--YOLOv5的训练及在地平线RDK X3上的快速部署">
+<meta property="og:url" content="https://szturin.github.io/posts/31493/index.html">
+<meta property="og:site_name" content="Turin&#39;s Blog">
+<meta property="og:description" content="一、Windows环境下的模型训练 针对YOLO的模型训练环境配置，Windows端兼容性差于Ubuntu，如果电脑上有Ubuntu系统，建议用Ubuntu系统进行训练（但注意，虚拟机安装的Ubuntu系统无法使用物理GPU进行训练）。 YOLO版本：YOLOV5 7.0  xxxxxxxxxx&amp;nbsp;$ tags: -数字电路与VHDL设计&quot;bash 准备好目标模型对应的图片数据集，使用l">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.aqcoder.cn/random">
+<meta property="article:published_time" content="2024-07-11T04:12:30.000Z">
+<meta property="article:modified_time" content="2024-09-04T11:13:25.471Z">
+<meta property="article:author" content="Szturin">
+<meta property="article:tag" content="算法 计算机语言 机器人 单片机 EDA 电子技术学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.aqcoder.cn/random"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://szturin.github.io/posts/31493/index.html"><link rel="preconnect" href="//unpkg.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://unpkg.com/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【yolov5】[1]初探目标检测算法--YOLOv5的训练及在地平线RDK X3上的快速部署',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-04 19:13:25'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Turin's Blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">65</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/notebook/"><i class="fa-fw comment-alt-smile"></i><span> 笔记</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.aqcoder.cn/random')"><nav id="nav"><span id="blog-info"><a href="/" title="Turin's Blog"><span class="site-name">Turin's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/notebook/"><i class="fa-fw comment-alt-smile"></i><span> 笔记</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【yolov5】[1]初探目标检测算法--YOLOv5的训练及在地平线RDK X3上的快速部署<a class="post-edit-link" href="null_posts/【yolov5】初探目标检测算法.md" title="编辑" target="_blank"><i class="fas fa-pencil-alt"></i></a></h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-11T04:12:30.000Z" title="发表于 2024-07-11 12:12:30">2024-07-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-04T11:13:25.471Z" title="更新于 2024-09-04 19:13:25">2024-09-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【yolov5】[1]初探目标检测算法--YOLOv5的训练及在地平线RDK X3上的快速部署"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一-windows环境下的模型训练"><a class="markdownIt-Anchor" href="#一-windows环境下的模型训练"></a> 一、Windows环境下的模型训练</h1>
+<p>针对YOLO的模型训练环境配置，Windows端兼容性差于Ubuntu，如果电脑上有Ubuntu系统，建议用Ubuntu系统进行训练（但注意，虚拟机安装的Ubuntu系统无法使用物理GPU进行训练）。</p>
+<p><strong><mark>YOLO版本：YOLOV5 7.0</mark></strong></p>
+<h2 id="xxxxxxxxxx-tags-数字电路与vhdl设计bash"><a class="markdownIt-Anchor" href="#xxxxxxxxxx-tags-数字电路与vhdl设计bash"></a> xxxxxxxxxx&nbsp;$ tags: -数字电路与VHDL设计"bash</h2>
+<p>准备好目标模型对应的图片数据集，使用labelme命令，启动数据集打标工具</p>
+<h2 id="2-模型的训练和导出onnx"><a class="markdownIt-Anchor" href="#2-模型的训练和导出onnx"></a> 2. 模型的训练和导出ONNX</h2>
+<h3 id="21-环境配置"><a class="markdownIt-Anchor" href="#21-环境配置"></a> 2.1 环境配置</h3>
+<blockquote>
+<p>Anoconda可以区分不同的环境，不同的环境下可以使用的命令是不同的</p>
+<p>创建环境</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n yolov5_7<span class="number">.0</span> python==<span class="number">3.8</span><span class="number">.5</span></span><br></pre></td></tr></tbody></table></figure>
+<p>列举所有环境</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env <span class="built_in">list</span></span><br></pre></td></tr></tbody></table></figure>
+<p>删除’环境</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env remove --name &lt;env_name&gt;</span><br></pre></td></tr></tbody></table></figure>
+<p>激活环境</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate &lt;env_name&gt;</span><br></pre></td></tr></tbody></table></figure>
+</blockquote>
+<blockquote>
+<p>如配置好yolo的环境，安装好pytorch，cuda，yolo相关依赖，就需要使用conda activate yolov5_7.0激活</p>
+</blockquote>
+<h4 id="211-常见问题"><a class="markdownIt-Anchor" href="#211-常见问题"></a> 2.1.1 <mark>常见问题：</mark></h4>
+<p>Anoconda环境下无法识别到CUDA</p>
+<p><strong>参考文章</strong>：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_71547093/article/details/133581922">print(torch.cuda.is_available())是false_pip install torch==2.0.1+cu117-CSDN博客</a></p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/31493/0248d8bfdc09cf576bce9846dbea681e.png" class="" title="img">
+<p><strong>问题原因</strong>：</p>
+<p>所使用的环境是anaconda pytorch。</p>
+<p>使用GPU来加速某个项目，但是GPU不能用，原因是没有安装GPU版本的torch和torchvision</p>
+<p><strong>解决方法</strong>：</p>
+<p>使用pip安装GPU版本的支持CUDA 11.7的torch和torchvision，并且版本分别为torch<mark>2.0.1和torchvision</mark>0.15.2。具体可以根据需要的版本进行修改。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install torch==<span class="number">2.0</span><span class="number">.1</span>+cu117 torchvision==<span class="number">0.15</span><span class="number">.2</span>+cu117 -f https://download.pytorch.org/whl/torch_stable.html</span><br></pre></td></tr></tbody></table></figure>
+<p>安装完成之后，检查是否可以正常使用。</p>
+<p><strong><mark>如果在线安装速度过慢，可以尝试进入网页的方法：</mark></strong></p>
+<p>手动下载 <code>.whl</code> 文件并离线安装。</p>
+<ol>
+<li>
+<p><strong>下载 <code>.whl</code> 文件</strong>：<br>
+访问 <a target="_blank" rel="noopener" href="https://download.pytorch.org/whl/torch_stable.html">PyTorch 官网</a> 或使用下面的链接手动下载相应的 <code>.whl</code> 文件：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://download.pytorch.org/whl/cu117/torch-2.0.1%2Bcu117-cp38-cp38-win_amd64.whl">torch-2.0.1+cu117</a></li>
+<li><a target="_blank" rel="noopener" href="https://download.pytorch.org/whl/cu117/torchvision-0.15.2%2Bcu117-cp38-cp38-win_amd64.whl">torchvision-0.15.2+cu117</a></li>
+</ul>
+</li>
+<li>
+<p><strong>离线安装</strong>：<br>
+下载完成后，使用 <code>pip</code> 离线安装：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install path/to/torch-<span class="number">2.0</span><span class="number">.1</span>+cu117-cp38-cp38-win_amd64.whl</span><br><span class="line">pip install path/to/torchvision-<span class="number">0.15</span><span class="number">.2</span>+cu117-cp38-cp38-win_amd64.whl</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ol>
+<p>输入python，回车，然后输入：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="built_in">print</span>(torch.cuda.is_available())</span><br></pre></td></tr></tbody></table></figure>
+<hr>
+<h3 id="23-训练过程源码修改板端设备-rdk-x3"><a class="markdownIt-Anchor" href="#23-训练过程源码修改板端设备-rdk-x3"></a> 2.3 <strong>训练过程源码修改(板端设备 RDK X3)</strong></h3>
+<p>修改YOLO源码的内容，使用GPU进行快速训练</p>
+<p><strong>参考文章：</strong><a target="_blank" rel="noopener" href="https://developer.horizon.cc/forumDetail/177840589839214598">YOLOv5较新版本的部署方法 (horizon.cc)</a></p>
+<p>主目录下 <a target="_blank" rel="noopener" href="http://export.py">export.py</a> 约1351行附近，标注两处不做注释</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shape = <span class="built_in">tuple</span>((y[<span class="number">0</span>] <span class="keyword">if</span> <span class="built_in">isinstance</span>(y, <span class="built_in">tuple</span>) <span class="keyword">else</span> y).shape)  <span class="comment"># model output shape#转换时注释</span></span><br><span class="line">metadata = {<span class="string">"stride"</span>: <span class="built_in">int</span>(<span class="built_in">max</span>(model.stride)), <span class="string">"names"</span>: model.names}  <span class="comment"># model metadata###</span></span><br><span class="line">LOGGER.info(<span class="string">f"\n<span class="subst">{colorstr(<span class="string">'PyTorch:'</span>)}</span> starting from <span class="subst">{file}</span> with output shape <span class="subst">{shape}</span> (<span class="subst">{file_size(file):<span class="number">.1</span>f}</span> MB)"</span>)<span class="comment">#转换时注释</span></span><br></pre></td></tr></tbody></table></figure>
+<p>model/yolo.py 约91行处</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">    <span class="string">"""Processes input through YOLOv5 layers, altering shape for detection: `x(bs, 3, ny, nx, 85)`."""</span></span><br><span class="line">    z = []  <span class="comment"># inference output</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.nl):</span><br><span class="line">        x[i] = self.m[i](x[i])  <span class="comment"># conv###</span></span><br><span class="line">        bs, _, ny, nx = x[i].shape  <span class="comment"># x(bs,255,20,20) to x(bs,3,20,20,85)###</span></span><br><span class="line">        </span><br><span class="line">	<span class="comment">### ###</span></span><br><span class="line">        <span class="comment">#转换成注释，训练时启用</span></span><br><span class="line">        x[i] = x[i].view(bs, self.na, self.no, ny, nx).permute(<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">2</span>).contiguous()</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.training:  <span class="comment"># inference</span></span><br><span class="line">            <span class="keyword">if</span> self.dynamic <span class="keyword">or</span> self.grid[i].shape[<span class="number">2</span>:<span class="number">4</span>] != x[i].shape[<span class="number">2</span>:<span class="number">4</span>]:</span><br><span class="line">                self.grid[i], self.anchor_grid[i] = self._make_grid(nx, ny, i)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">isinstance</span>(self, Segment):  <span class="comment"># (boxes + masks)</span></span><br><span class="line">                xy, wh, conf, mask = x[i].split((<span class="number">2</span>, <span class="number">2</span>, self.nc + <span class="number">1</span>, self.no - self.nc - <span class="number">5</span>), <span class="number">4</span>)</span><br><span class="line">                xy = (xy.sigmoid() * <span class="number">2</span> + self.grid[i]) * self.stride[i]  <span class="comment"># xy</span></span><br><span class="line">                wh = (wh.sigmoid() * <span class="number">2</span>) ** <span class="number">2</span> * self.anchor_grid[i]  <span class="comment"># wh</span></span><br><span class="line">                y = torch.cat((xy, wh, conf.sigmoid(), mask), <span class="number">4</span>)</span><br><span class="line">            <span class="keyword">else</span>:  <span class="comment"># Detect (boxes only)</span></span><br><span class="line">                xy, wh, conf = x[i].sigmoid().split((<span class="number">2</span>, <span class="number">2</span>, self.nc + <span class="number">1</span>), <span class="number">4</span>)</span><br><span class="line">                xy = (xy * <span class="number">2</span> + self.grid[i]) * self.stride[i]  <span class="comment"># xy</span></span><br><span class="line">                wh = (wh * <span class="number">2</span>) ** <span class="number">2</span> * self.anchor_grid[i]  <span class="comment"># wh</span></span><br><span class="line">                y = torch.cat((xy, wh, conf), <span class="number">4</span>)</span><br><span class="line">            z.append(y.view(bs, self.na * nx * ny, self.no))</span><br><span class="line">    <span class="keyword">return</span> x <span class="keyword">if</span> self.training <span class="keyword">else</span> (torch.cat(z, <span class="number">1</span>),) <span class="keyword">if</span> self.export <span class="keyword">else</span> (torch.cat(z, <span class="number">1</span>), x)</span><br><span class="line">	<span class="comment">### ###</span></span><br><span class="line">        <span class="comment"># x[i] = x[i].permute(0, 2, 3, 1).contiguous()#转换时启用,训练时注释</span></span><br><span class="line">    <span class="comment"># return x#转换时启用</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="21-模型的训练"><a class="markdownIt-Anchor" href="#21-模型的训练"></a> 2.1 模型的训练</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python train.py --data face_data.yaml --cfg face_yolo5s.yaml --weights pretrained/yolov5s.pt --batch-size <span class="number">16</span> --epochs <span class="number">300</span>  --imgsz <span class="number">672</span> --device <span class="number">0</span></span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>face_data.yaml：指定数据集的配置文件为 <code>face_data.yaml</code>，这个文件包含了训练和验证数据集的路径、类别数以及类别名称等信息</li>
+<li>face_yolo5s.yaml：指定 YOLOv5 模型的配置文件为 <code>face_yolo5s.yaml</code>，这个文件定义了模型的结构和各项超参数</li>
+<li>weights：指定预训练权重文件的路径为 <code>pretrained/yolov5s.pt</code>，这些权重将用于初始化模型的参数，以加速训练收敛</li>
+<li>batch-size：设置训练时的批量大小为 4，这表示每次迭代中使用的样本数为 4，影响训练速度和模型训练过程</li>
+<li>device：指定训练时使用的设备，这里的 <code>0</code> 表示使用 GPU 0。如果你有多个 GPU，可以根据需要更改这个数字；如果你想使用 CPU，可以将其设置为 <code>cpu</code></li>
+<li>epochs：训练轮数</li>
+<li>imgsz：模型大小（本例 输入输出为 672 x672）</li>
+<li>deviece：选择设备号，0一般指向GPU（需要安装对应版本的CUDA和cudnn）</li>
+</ul>
+<h2 id="22-模型的onnx格式导出"><a class="markdownIt-Anchor" href="#22-模型的onnx格式导出"></a> 2.2 模型的ONNX格式导出</h2>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python export.py --weights runs/train/exp/weights/best.pt --include onnx engine --img-size <span class="number">672</span> --batch-size <span class="number">1</span> --device <span class="number">0</span> </span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>–weights：此段命令指向训练好的pt模型目录</li>
+<li>include：目标格式</li>
+</ul>
+<h2 id="3-模型的windows端验证"><a class="markdownIt-Anchor" href="#3-模型的windows端验证"></a> 3. 模型的Windows端验证</h2>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检测摄像头</span></span><br><span class="line">python detect.py  --weights runs/train/exp_yolov5s/weights/best.pt --source <span class="number">0</span>  <span class="comment"># webcam</span></span><br><span class="line"><span class="comment"># 检测图片文件</span></span><br><span class="line"> python detect.py  --weights runs/train/exp_yolov5s/weights/best.pt --source file.jpg  <span class="comment"># image </span></span><br><span class="line"><span class="comment"># 检测视频文件</span></span><br><span class="line">  python detect.py --weights runs/train/exp_yolov5s/weights/best.pt --source file.mp4  <span class="comment"># video</span></span><br><span class="line"><span class="comment"># 检测一个目录下的文件</span></span><br><span class="line"> python detect.py --weights runs/train/exp_yolov5s/weights/best.pt path/  <span class="comment"># directory</span></span><br><span class="line"><span class="comment"># 检测网络视频</span></span><br><span class="line"> python detect.py --weights runs/train/exp_yolov5s/weights/best.pt <span class="string">'https://youtu.be/NUsoVlDFqZg'</span>  <span class="comment"># YouTube video</span></span><br><span class="line"><span class="comment"># 检测流媒体</span></span><br><span class="line"> python detect.py --weights runs/train/exp_yolov5s/weights/best.pt <span class="string">'rtsp://example.com/media.mp4'</span>  <span class="comment"># RTSP, RTMP, HTTP stream                            </span></span><br></pre></td></tr></tbody></table></figure>
+<h1 id="二-模型部署"><a class="markdownIt-Anchor" href="#二-模型部署"></a> 二、模型部署</h1>
+<h2 id="1-模型的工具链环境ubuntuonnx转化bin格式"><a class="markdownIt-Anchor" href="#1-模型的工具链环境ubuntuonnx转化bin格式"></a> 1. 模型的工具链环境(Ubuntu)——onnx转化bin格式</h2>
+<p><strong>参考文章：<a target="_blank" rel="noopener" href="https://developer.horizon.cc/forumDetail/163807123501918330">【模型提速】如何在X3pi使用yolov5模型50ms推理 (horizon.cc)</a></strong></p>
+<hr>
+<p><strong>文件结构</strong>：</p>
+<p><code>hb_mapper_makertbin.log</code>是工具链自动生成的日志文件<br>
+<code>imgs_train</code>存放训练集中的原图片<br>
+<code>imgs_cal</code>存放转化模型需要的图片校准数据<br>
+<code>tran.py</code>用于将原训练集图片转化成校准数据<br>
+<code>medels_onnx</code>存放转化前的onnx模型<br>
+<code>models_onnx</code>存放转化后的bin文件<br>
+<code>tran.yaml</code>是转化所需的文本</p>
+<hr>
+<p><strong>模型验证</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hb_mapper checker --model-<span class="built_in">type</span> onnx --march bernoulli2 --model models_onnx/my_face.onnx --<span class="built_in">input</span>-shape images 1x3x672x672</span><br></pre></td></tr></tbody></table></figure>
+<p>注意：–input-shape 需要跟之前的模型尺寸参数对应</p>
+<p>验证执行之后，在命令行界面可以看到算子是否在CPU/BPU上支持运行</p>
+<p><strong>板载模型转化</strong></p>
+<p>转化之前，yaml文件中要注意修改对应标注的参数</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hb_mapper makertbin --config yaml文件的位置 --model-<span class="built_in">type</span> onnx</span><br></pre></td></tr></tbody></table></figure>
+<p>执行命令之后，可以在model_output文件夹中找到对应的bin文件</p>
+<p><strong>模型性能分析(开发机评测性能)</strong></p>
+<p>使用 <code>hb_perf</code> 工具评测模型性能，使用方式如下：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hb_perf  ***.bin</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="2-板端rdk-x3部署"><a class="markdownIt-Anchor" href="#2-板端rdk-x3部署"></a> 2. 板端（RDK X3）部署</h2>
+<p>将转换完成的bin文件，复制到板端对应目录即可</p>
+<p><strong>RDK X3 板端模型运行过程：</strong></p>
+<ul>
+<li>
+<p>模型预处理：CPU</p>
+</li>
+<li>
+<p>模型推理：BPU 与 CPU 并行</p>
+</li>
+<li>
+<p>模型后处理：CPU</p>
+</li>
+</ul>
+<h3 id="21-后处理函数部分"><a class="markdownIt-Anchor" href="#21-后处理函数部分"></a> 2.1 后处理函数部分</h3>
+<h4 id="211-python版本"><a class="markdownIt-Anchor" href="#211-python版本"></a> 2.1.1 Python版本</h4>
+<blockquote>
+<p>后处理函数中类别数目，类名都要跟模型一一对应</p>
+<ul>
+<li><code>postprocess.py</code>，把<code>num_classes</code>改成自己模型的class数量</li>
+<li><code>def get_classes(class_file_name='dominoes.names')</code>，改成存放标签的名词</li>
+</ul>
+</blockquote>
+<p><strong>后处理函数中数据处理模块需要根据模型的分辨率，类别数目进行修改。如若参数不对应，使用后处理函数时会报错</strong></p>
+<p><a target="_blank" rel="noopener" href="https://developer.horizon.cc/forumDetail/198686198578007656">YOLOV5 在地平线RDK X3的高效部署 (horizon.cc)</a></p>
+<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/posts/31493/605ba25c7844d1c31120f0361c46893.png" class="" title="605ba25c7844d1c31120f0361c46893">
+<h4 id="212-c版本"><a class="markdownIt-Anchor" href="#212-c版本"></a> 2.1.2 C++版本</h4>
+<p>由于Python是解释型语言，运行后处理这类计算量较大的操作非常耗时，用C++的方法编写代码速度快得多。</p>
+<p>一种解决方案是，使用Cython加速后处理部分，用Cython的方法封装C++为Python的接口。能够极大提升模型性能。</p>
+<p><strong>参考文章：</strong>[<a target="_blank" rel="noopener" href="https://developer.d-robotics.cc/forumDetail/112555549341653639">BPU部署教程] 教你搞定YOLOV5部署 (版本_ 6.2) (d-robotics.cc)</a></p>
+<h1 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1>
+<p>参考文章汇总：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_71547093/article/details/133581922">print(torch.cuda.is_available())是false_pip install torch==2.0.1+cu117-CSDN博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.horizon.cc/forumDetail/177840589839214598">YOLOv5较新版本的部署方法 (horizon.cc)</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.horizon.cc/forumDetail/163807123501918330">【模型提速】如何在X3pi使用yolov5模型50ms推理 (horizon.cc)</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.horizon.cc/forumDetail/198686198578007656">YOLOV5 在地平线RDK X3的高效部署 (horizon.cc)</a></li>
+<li>[<a target="_blank" rel="noopener" href="https://developer.d-robotics.cc/forumDetail/112555549341653639">BPU部署教程] 教你搞定YOLOV5部署 (版本_ 6.2) (d-robotics.cc)</a></li>
+</ul>
+<p>本文使用环境：Windows(训练) -&gt; 虚拟机Ubuntu(转换，校验) -&gt; 板端RDK X3(最终部署)</p>
+<p>建议环境：Ubuntu(训练)-&gt;Ubuntu(转换，校验)-&gt;板端部署</p>
+<p>本文使用YOLOv5 7.0，也可以尝试 YOLOv5 tag2.0 版本，站内有教程说明tag2.0版本与BPU的适配性更好。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://szturin.github.io">Szturin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://szturin.github.io/posts/31493/">https://szturin.github.io/posts/31493/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://szturin.github.io" target="_blank">Turin's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.aqcoder.cn/random" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://unpkg.com/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://unpkg.com/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/35334/" title="【TI】-1-Sysconfig工具使用（GPIO、定时器为例）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【TI】-1-Sysconfig工具使用（GPIO、定时器为例）</div></div></a></div><div class="next-post pull-right"><a href="/posts/9164/" title="【ROS2】[2]ROS2节点的编写"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【ROS2】[2]ROS2节点的编写</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Szturin</div><div class="author-info__description">保持热爱，奔赴星海</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">65</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Szturin"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">近期学习：1.stm32裸机开发-->rtos 2.python->OpenMv</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-windows%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">1.</span> <span class="toc-text"> 一、Windows环境下的模型训练</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#xxxxxxxxxx-tags-%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E4%B8%8Evhdl%E8%AE%BE%E8%AE%A1bash"><span class="toc-number">1.1.</span> <span class="toc-text"> xxxxxxxxxx $ tags: -数字电路与VHDL设计&quot;bash</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83%E5%92%8C%E5%AF%BC%E5%87%BAonnx"><span class="toc-number">1.2.</span> <span class="toc-text"> 2. 模型的训练和导出ONNX</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 2.1 环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#211-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"> 2.1.1 常见问题：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B%E6%BA%90%E7%A0%81%E4%BF%AE%E6%94%B9%E6%9D%BF%E7%AB%AF%E8%AE%BE%E5%A4%87-rdk-x3"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 2.3 训练过程源码修改(板端设备 RDK X3)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#21-%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 2.1 模型的训练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22-%E6%A8%A1%E5%9E%8B%E7%9A%84onnx%E6%A0%BC%E5%BC%8F%E5%AF%BC%E5%87%BA"><span class="toc-number">1.3.</span> <span class="toc-text"> 2.2 模型的ONNX格式导出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%A8%A1%E5%9E%8B%E7%9A%84windows%E7%AB%AF%E9%AA%8C%E8%AF%81"><span class="toc-number">1.4.</span> <span class="toc-text"> 3. 模型的Windows端验证</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E6%A8%A1%E5%9E%8B%E9%83%A8%E7%BD%B2"><span class="toc-number">2.</span> <span class="toc-text"> 二、模型部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%B7%A5%E5%85%B7%E9%93%BE%E7%8E%AF%E5%A2%83ubuntuonnx%E8%BD%AC%E5%8C%96bin%E6%A0%BC%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text"> 1. 模型的工具链环境(Ubuntu)——onnx转化bin格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9D%BF%E7%AB%AFrdk-x3%E9%83%A8%E7%BD%B2"><span class="toc-number">2.2.</span> <span class="toc-text"> 2. 板端（RDK X3）部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#21-%E5%90%8E%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0%E9%83%A8%E5%88%86"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 2.1 后处理函数部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#211-python%E7%89%88%E6%9C%AC"><span class="toc-number">2.2.1.1.</span> <span class="toc-text"> 2.1.1 Python版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#212-c%E7%89%88%E6%9C%AC"><span class="toc-number">2.2.1.2.</span> <span class="toc-text"> 2.1.2 C++版本</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text"> 总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/56683/" title="【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”"/></a><div class="content"><a class="title" href="/posts/56683/" title="【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”">【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”</a><time datetime="2024-09-09T14:35:16.000Z" title="发表于 2024-09-09 22:35:16">2024-09-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/34487/" title="【Tensorflow】[2] 神经网络搭建"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Tensorflow】[2] 神经网络搭建"/></a><div class="content"><a class="title" href="/posts/34487/" title="【Tensorflow】[2] 神经网络搭建">【Tensorflow】[2] 神经网络搭建</a><time datetime="2024-09-07T17:12:30.000Z" title="发表于 2024-09-08 01:12:30">2024-09-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/46726/" title="【Python基础】[1]Python的基本语法"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Python基础】[1]Python的基本语法"/></a><div class="content"><a class="title" href="/posts/46726/" title="【Python基础】[1]Python的基本语法">【Python基础】[1]Python的基本语法</a><time datetime="2024-09-05T04:58:08.000Z" title="发表于 2024-09-05 12:58:08">2024-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7213/" title="【Git学习】[3]标签管理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Git学习】[3]标签管理"/></a><div class="content"><a class="title" href="/posts/7213/" title="【Git学习】[3]标签管理">【Git学习】[3]标签管理</a><time datetime="2024-09-03T11:02:08.000Z" title="发表于 2024-09-03 19:02:08">2024-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/21302/" title="【Git学习】[2]分支管理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Git学习】[2]分支管理"/></a><div class="content"><a class="title" href="/posts/21302/" title="【Git学习】[2]分支管理">【Git学习】[2]分支管理</a><time datetime="2024-09-03T10:38:38.000Z" title="发表于 2024-09-03 18:38:38">2024-09-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By Szturin</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://unpkg.com/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://unpkg.com/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://unpkg.com/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站采用多线程部署，主线路托管于腾讯云服务器，备用线路托管于Github/Gitee。" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body></html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Turin's Blog - 数理照亮世界</title><meta name="author" content="Szturin"><meta name="copyright" content="Szturin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="保持热爱，奔赴星海">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Turin&#39;s Blog">
+<meta property="og:url" content="https://szturin.github.io/page/4/index.html">
+<meta property="og:site_name" content="Turin&#39;s Blog">
+<meta property="og:description" content="保持热爱，奔赴星海">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://szturin.github.io/img/avatar.png">
+<meta property="article:author" content="Szturin">
+<meta property="article:tag" content="算法 计算机语言 机器人 单片机 EDA 电子技术学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://szturin.github.io/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://szturin.github.io/page/4/index.html"><link rel="preconnect" href="//unpkg.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://unpkg.com/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Turin\'s Blog',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-09-13 18:20:49'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Turin's Blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">65</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/notebook/"><i class="fa-fw comment-alt-smile"></i><span> 笔记</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="Turin's Blog"><span class="site-name">Turin's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/share/"><i class="fa-fw fa fa-share-alt-square"></i><span> 分享</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fa fa-images"></i><span> 图库</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div><div class="menus_item"><a class="site-page" href="/notebook/"><i class="fa-fw comment-alt-smile"></i><span> 笔记</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Turin's Blog</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/posts/25165/" title="【单片机】串口通信"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/MCU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【单片机】串口通信"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/25165/" title="【单片机】串口通信">【单片机】串口通信</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-03-23T11:29:59.000Z" title="发表于 2024-03-23 19:29:59">2024-03-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a></span></div><div class="content"> 蓝桥杯部分
+ 1.串口底层
+1234567891011121314151617181920212223242526272829#include &lt;Uart.h&gt;/* 串口初始化函数 */void UartInit(void)		//9600bps@12.000MHz{	SCON = 0x50;		//8位数据,可变波特率	AUXR |= 0x01;		//串口1选择定时器2为波特率发生器	AUXR |= 0x04;		//定时器时钟1T模式	T2L = 0xC7;		//设置定时初始值	T2H = 0xFE;		//设置定时初始值	AUXR |= 0x10;		//定时器2开始计时	ES = 1;//允许串口中断	EA = 1;//总中断开启}/* 字节发送函数 */void SendByte(unsigned char dat){	SBUF=dat;//将dat数据赋给SBUF，将数据发送出去	while(TI == 0);//等待数据发送	TI = 0;//将发送标志位清零}/* 字符串发送函数 */void Uart_Send_String(unsigned cha ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/5903/" title="【蓝桥杯单片机】考点复盘1"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/MCU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【蓝桥杯单片机】考点复盘1"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/5903/" title="【蓝桥杯单片机】考点复盘1">【蓝桥杯单片机】考点复盘1</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-03-23T08:33:10.000Z" title="发表于 2024-03-23 16:33:10">2024-03-23</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/51%E5%8D%95%E7%89%87%E6%9C%BA/">51单片机</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a></span></div><div class="content"> 一、LED模块
+ 1.LED底层代码
+12345678910111213141516void Led_Disp(unsigned char addr, enable){    static unsigned char temp = 0x00;    static unsigned char temp_old = 0xff;    if (enable)        temp |= 0x01 &lt;&lt; addr;    else        temp &amp;= ~(0x01 &lt;&lt; addr);   if (temp != temp_old)    {        P0 = ~temp;        P2 = P2 &amp; 0x1f | 0x80;        P2 &amp;= 0x1f;        temp_old = temp;    }}
+ 2.基本调用方式
+123456ucLED[n]=x;中断程序{    Led_Disp(Nixie_Pos,ucLED[Nixie_Pos]);}
+ 二、按键模块
+ 1.按键底层代码
+12345678 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/64385/" title="【stm32单片机】[6]输入捕获和输出比较"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/stm32.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【stm32单片机】[6]输入捕获和输出比较"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/64385/" title="【stm32单片机】[6]输入捕获和输出比较">【stm32单片机】[6]输入捕获和输出比较</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-03-17T04:39:49.000Z" title="发表于 2024-03-17 12:39:49">2024-03-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/STM32/">STM32</a></span></div><div class="content"> 基本概念
+xxxxxxxxxx&nbsp;$ tags: -数字电路与VHDL设计"bash
+另外它们的CH1到CH4，4个通道的引脚，也是公用的
+所以对于同一个定时器，输入捕获和输出比较只能用其中一个。
+ 一、输出比较
+
+
+根据CNT和CCR的大小关系，从通道引脚输出高低电平
+ 二、输入捕获
+
+
+输入滤波器：可以对毛刺信号进行滤波
+交叉输入的作用？
+TRC?
+CNT计数器是由内部的标准时钟进行驱动的，可以用于测量外部检测两个上升沿的时间间隔，
+所以需要在检测到一个上升沿过后，清零CNT，这样在第二次上升沿后，CNT值就是测周法的N，可以通过主从触发模式，自动完成。
+总结：
+输入捕获类似于外部中断。都是检测边沿，然后执行相应的动嘴，而在输入捕获中。检测到指定电平跳变后，CNT的值所存到CCR中。
+
+
+输出比较。引脚是输出端口，根据CNT和CCR的大小关系执行输出的动作。
+
+
+输入捕获。引脚是输入端口，接收到输入信号，执行锁存的动作。
+
+
+#主从触发模式：
+将主从触发模式和PWMI模式相结合，可以让硬件自动测量频率和占空比，软件无需进行干预。
+ 三、频率测量
+
+PS：STM32测频率只 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/25039/" title="【蓝桥杯单片机】第九届省赛题"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/MCU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【蓝桥杯单片机】第九届省赛题"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/25039/" title="【蓝桥杯单片机】第九届省赛题">【蓝桥杯单片机】第九届省赛题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-03-08T15:51:48.000Z" title="发表于 2024-03-08 23:51:48">2024-03-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/51%E5%8D%95%E7%89%87%E6%9C%BA/">51单片机</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/">蓝桥杯</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a></span></div><div class="content"> 题目要求
+
+ 题目分析（思路）
+
+
+首先，定义按键所控制的相关变量
+
+
+编写数码管显示的逻辑，以”设置状态为准“，测试按键是否能正常控制相关参数(工作模式、流转间隔)
+
+因为一共有四个工作模式，流转间隔定义为一个数组，存放各个元素的流转时长
+
+
+
+将工作模式1的相关逻辑（LED流转方式）编写出来
+
+这里使用一个指针用于LED的点亮(LED_OFF)，另一个用于LED的熄灭(LED_ON)
+
+
+
+将工作模式，流转间隔的逻辑与LED工作模式1关联，测试按键功能是否正常，LED是否能被流转间隔控制
+
+
+如果以上程序测试正确，编写其他三个工作模式的LED模块
+
+此时进行程序测试，功能正常，但是切换其他流转模式会有上一个模式的LED”残留“ (如双LED模式切换到单LED模式时)，因此需要进行LED的复位（在按键控制模块中编写）
+
+
+
+修改完毕后，编写亮度控制，此时注意到，一个定时器0无法满足对LED扫描的同时进行亮度控制，因此再调用定时器1，用于LED的扫描指针偏移，以及LED的PWM控制亮度。
+
+这里修改完程序后，发现数码管闪烁，这是因为定时器1的频率较高，会打断主函数中数码管显示模块，因 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/23815/" title="【单片机】SPI协议"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/MCU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【单片机】SPI协议"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/23815/" title="【单片机】SPI协议">【单片机】SPI协议</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-03-08T15:27:37.000Z" title="发表于 2024-03-08 23:27:37">2024-03-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a></span></div><div class="content"> 基础概念
+ 什么是SPI？
+SPI是串行外设接口(Serial Peripheral Interface)的缩写。是 Motorola 公司推出的一 种同步串行接口技术，是一种高速的，全双工，同步的通信总线。
+SPI优点:支持全双工通信 通信简单 数据传输速率块
+缺点 :没有指定的流控制，没有应答机制确认是否接收到数据，所以跟IIC总线协议比较在数据 可靠性上有一定的缺陷。
+特点:
+
+高速、同步、全双工、非差分、总线式
+主从机通信模式
+
+ 蓝桥杯相关（暂未使用SPI）
+ DS1302（时钟芯片）底层
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051#include &lt;reg52.h&gt;#include &lt;intrins.h&gt;#include "ds1302.h"sbit SCK=P1^7;		sbit SDA=P2^3;		sbit RST = P1^3;  											void Write_Ds1302(unsig ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/46163/" title="【单片机】OneWire通信协议"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/MCU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【单片机】OneWire通信协议"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/46163/" title="【单片机】OneWire通信协议">【单片机】OneWire通信协议</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-03-08T15:13:29.000Z" title="发表于 2024-03-08 23:13:29">2024-03-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a></span></div><div class="content"> 一、OneWire（单总线）协议
+•单总线（1-Wire BUS）是由Dallas公司开发的一种通用数据总线
+•一根通信线：DQ
+•异步、半双工
+•单总线只需要一根通信线即可实现数据的双向传输，当采用寄生供电时，还可以省去设备的VDD线路，此时，供电加通信只需要DQ和GND两根线
+ 二、单总线电路规范
+•设备的DQ均要配置成开漏输出模式
+•DQ添加一个上拉电阻，阻值一般为4.7KΩ左右
+•若此总线的从机采取寄生供电，则主机还应配一个强上拉输出电路
+
+ 三、单总线的时序结构
+
+
+
+
+
+ 蓝桥杯相关
+ OneWire底层
+123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263#include "onewire.h"#include "reg52.h"sbit DQ = P1^4;  //单总线内部延时函数void Delay_OneWire(unsigned int t)  {	t *= 12;	while(t ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/19787/" title="【单片机】IIC通信协议"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/MCU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【单片机】IIC通信协议"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/19787/" title="【单片机】IIC通信协议">【单片机】IIC通信协议</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-03-08T14:58:21.000Z" title="发表于 2024-03-08 22:58:21">2024-03-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a></span></div><div class="content"> 一、单片机通信基础概念
+全双工和半双工的区别：
+一、全双工（Full Duplex）通信允许数据在两个方向上同时传输，它在能力上相当于两个单工通信方式的结合。全双工指可以同时（瞬时）进行信号的双向传输（A→B且B→A）。指A→B的同时B→A，是瞬时同步的。
+二、半双工（Half Duplex）数据传输指数据可以在一个信号载体的两个方向上传输，但是不能同时传输。
+MCU中常见的通信协议：
+
+ 二、推挽输出和开漏输出
+推挽输出：
+
+推挽输出结构是由两个MOS或者三极管收到互补控制的信号控制，两个管子时钟一个在导通，一个在截止，如图1所示：
+
+
+特点:
+
+推挽输出可以输出高电平和低电平，在两种电平下都具有驱动能力。
+相比于后面介绍的开漏输出，输出高电平时的驱动能力强很多
+缺点：推挽输出不能实现" 线与"。
+
+开漏输出：
+
+常说的与推挽输出相对的就是开漏输出，抽象地说就是COMS反相器去掉了NMOS部分，PMOS管漏极输出，即开漏输出。PMOS管由高电平导通输出低电平，高电平没有驱动能力，需要借助“上拉电阻” (一般上拉电阻值较大，即弱上拉模式)什么是弱上拉?
+
+
+ 开漏输出的另一个优点在于 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/4799/" title="【51单片机】AT24C02(EEPROM储存)"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/MCU.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【51单片机】AT24C02(EEPROM储存)"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/4799/" title="【51单片机】AT24C02(EEPROM储存)">【51单片机】AT24C02(EEPROM储存)</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-03-05T11:59:51.000Z" title="发表于 2024-03-05 19:59:51">2024-03-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/51%E5%8D%95%E7%89%87%E6%9C%BA/">51单片机</a></span></div><div class="content">2.26更新
+ 基本概念
+ #前置概念
+
+所用外设：
+AT24C02(EEPROM储存) 使用IIC协议
+
+ 一、单片机通信协议（本文以IIC为重点）
+全双工和半双工的区别：
+一、全双工（Full Duplex）通信允许数据在两个方向上同时传输，它在能力上相当于两个单工通信方式的结合。全双工指可以同时（瞬时）进行信号的双向传输（A→B且B→A）。指A→B的同时B→A，是瞬时同步的。
+二、半双工（Half Duplex）数据传输指数据可以在一个信号载体的两个方向上传输，但是不能同时传输。
+MCU中常见的通信协议：
+
+ 二、推挽输出和开漏输出
+推挽输出：
+
+推挽输出可以输出高电平和低电平，在两种电平下都具有驱动能力。
+相比于后面介绍的开漏输出，输出高电平时的驱动能力强很多
+缺点：推挽输出不能实现" 线与"。
+
+开漏输出：
+
+常说的与推挽输出相对的就是开漏输出，抽象地说就是COMS反相器去掉了NMOS部分，PMOS管漏极输出，即开漏输出。PMOS管由高电平导通输出低电平，高电平没有驱动能力，需要借助“上拉电阻” (一般上拉电阻值较大，即弱上拉模式)什么是弱上拉?
+
+IIC为什么要开漏输出模式 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/32351/" title="【stm32单片机】[5]定时器控制PWM"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/stm32.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【stm32单片机】[5]定时器控制PWM"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/32351/" title="【stm32单片机】[5]定时器控制PWM">【stm32单片机】[5]定时器控制PWM</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-03-05T11:57:05.000Z" title="发表于 2024-03-05 19:57:05">2024-03-05</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/STM32/">STM32</a></span></div><div class="content">
+配置结构体初始化输出比较单元
+void TIM_OC1Init(TIM_TypeDef* TIMx, TIM_OCInitTypeDef* TIM_OCInitStruct);
+void TIM_OC2Init(TIM_TypeDef* TIMx, TIM_OCInitTypeDef* TIM_OCInitStruct);
+void TIM_OC3Init(TIM_TypeDef* TIMx, TIM_OCInitTypeDef* TIM_OCInitStruct);
+void TIM_OC4Init(TIM_TypeDef* TIMx, TIM_OCInitTypeDef* TIM_OCInitStruct);
+设置结构体初始值
+void TIM_OCStructInit(TIM_OCInitTypeDef* TIM_OCInitStruct);
+
+*配置强制输出
+void TIM_ForcedOC1Config(TIM_TypeDef* TIMx, uint16_t TIM_ForcedAction);
+void TIM_ForcedOC2Config(TIM_TypeDef*  ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/52613/" title="【微机原理】[1] 文件寄存器RAM"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/pic.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【微机原理】[1] 文件寄存器RAM"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/52613/" title="【微机原理】[1] 文件寄存器RAM">【微机原理】[1] 文件寄存器RAM</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-02-29T02:30:18.000Z" title="发表于 2024-02-29 10:30:18">2024-02-29</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/PIC%E5%8D%95%E7%89%87%E6%9C%BA/">PIC单片机</a></span></div><div class="content"> 课堂记录
+
+ 配置位
+
+</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/57601/" title="【stm32单片机】[4]定时器中断"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/stm32.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【stm32单片机】[4]定时器中断"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/57601/" title="【stm32单片机】[4]定时器中断">【stm32单片机】[4]定时器中断</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-02-28T12:43:14.000Z" title="发表于 2024-02-28 20:43:14">2024-02-28</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/STM32/">STM32</a></span></div><div class="content">
+
+打开RCC内部时钟
+
+
+选择时基单元时钟源
+
+
+配置时基单元
+
+
+配置输出中断控制，允许更新中断输出到NVIC
+
+
+配置NVIC，打开定时器通道，并分配一个优先级
+
+
+运行控制
+
+
+ 相关函数
+
+
+恢复缺省配置
+
+TIM_DeInit(TIM_TypeDef* TIMx);
+
+时基单元初始化
+
+TIM_TimeBaseInit(TIM_TypeDef* TIMx, TIM_TimeBaseInitTypeDef* TIM_TimeBaseInitStruct);
+
+TIMx：选择定时器
+TIM_TimeBaseInitStruct：结构体，定时器有关的配置
+
+
+结构体初始化
+
+TIM_TimeBaseStructInit(TIM_TimeBaseInitTypeDef* TIM_TimeBaseInitStruct);
+
+使能计数器，对应运行控制
+
+TIM_Cmd(TIM_TypeDef* TIMx, FunctionalState NewState);
+
+中断输出使能控制
+
+TIM_ITConfig(TIM_TypeDef* TIMx, uint16_t TIM_IT, Func ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/44123/" title="【stm32单片机】[3]EXTI外部中断"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/blog_cover/stm32.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【stm32单片机】[3]EXTI外部中断"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/44123/" title="【stm32单片机】[3]EXTI外部中断">【stm32单片机】[3]EXTI外部中断</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-02-27T16:19:42.000Z" title="发表于 2024-02-28 00:19:42">2024-02-28</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/STM32/">STM32</a></span></div><div class="content"> stm32的中断结构
+
+ NVIC
+STM32中的NVIC详解_stm32 nvic-CSDN博客
+ EXTI
+
+
+ 一、对射式红外传感器计次
+ 红外传感器底层程序
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182#include "stm32f10x.h"                  // Device headeruint16_t CountSensor_Count;				//全局变量，用于计数/**  * 函    数：计数传感器初始化  * 参    数：无  * 返 回 值：无  */void CountSensor_Init(void){	/*外部中断的定义*/	/*开启时钟*/	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);		//开启GPIOB ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/3/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/#content-inner">5</a><a class="page-number" href="/page/6/#content-inner">6</a><a class="extend next" rel="next" href="/page/5/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Szturin</div><div class="author-info__description">保持热爱，奔赴星海</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">65</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">34</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Szturin"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">近期学习：1.stm32裸机开发-->rtos 2.python->OpenMv</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/56683/" title="【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”"/></a><div class="content"><a class="title" href="/posts/56683/" title="【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”">【stm32单片机】[Hal库][3]嵌入式工程模板与“任务调度器”</a><time datetime="2024-09-09T14:35:16.000Z" title="发表于 2024-09-09 22:35:16">2024-09-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/34487/" title="【Tensorflow】[2] 神经网络搭建"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Tensorflow】[2] 神经网络搭建"/></a><div class="content"><a class="title" href="/posts/34487/" title="【Tensorflow】[2] 神经网络搭建">【Tensorflow】[2] 神经网络搭建</a><time datetime="2024-09-07T17:12:30.000Z" title="发表于 2024-09-08 01:12:30">2024-09-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/46726/" title="【Python基础】[1]Python的基本语法"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Python基础】[1]Python的基本语法"/></a><div class="content"><a class="title" href="/posts/46726/" title="【Python基础】[1]Python的基本语法">【Python基础】[1]Python的基本语法</a><time datetime="2024-09-05T04:58:08.000Z" title="发表于 2024-09-05 12:58:08">2024-09-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7213/" title="【Git学习】[3]标签管理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Git学习】[3]标签管理"/></a><div class="content"><a class="title" href="/posts/7213/" title="【Git学习】[3]标签管理">【Git学习】[3]标签管理</a><time datetime="2024-09-03T11:02:08.000Z" title="发表于 2024-09-03 19:02:08">2024-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/21302/" title="【Git学习】[2]分支管理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://api.aqcoder.cn/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【Git学习】[2]分支管理"/></a><div class="content"><a class="title" href="/posts/21302/" title="【Git学习】[2]分支管理">【Git学习】[2]分支管理</a><time datetime="2024-09-03T10:38:38.000Z" title="发表于 2024-09-03 18:38:38">2024-09-03</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a>
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/51%E5%8D%95%E7%89%87%E6%9C%BA/"><span class="card-category-list-name">51单片机</span><span class="card-category-list-count">9</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/C-C/"><span class="card-category-list-name">C/C++</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/FPGA/"><span class="card-category-list-name">FPGA</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">3</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/Ubuntu/"><span class="card-category-list-name">Ubuntu</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Matlab/"><span class="card-category-list-name">Matlab</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/OpenCV/"><span class="card-category-list-name">OpenCV</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/PIC%E5%8D%95%E7%89%87%E6%9C%BA/"><span class="card-category-list-name">PIC单片机</span><span class="card-category-list-count">5</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/UART%E9%80%9A%E4%BF%A1/" style="font-size: 1.1em; color: #999">UART通信</a> <a href="/tags/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/" style="font-size: 1.23em; color: #999ea6">数字电路</a> <a href="/tags/linux/" style="font-size: 1.17em; color: #999c9f">linux</a> <a href="/tags/RDK-X3/" style="font-size: 1.17em; color: #999c9f">RDK X3</a> <a href="/tags/%E8%AF%BE%E7%A8%8B%E8%AE%BE%E8%AE%A1/" style="font-size: 1.1em; color: #999">课程设计</a> <a href="/tags/Ubuntu/" style="font-size: 1.1em; color: #999">Ubuntu</a> <a href="/tags/DMA%E6%95%B0%E6%8D%AE%E8%BD%AC%E8%BF%90/" style="font-size: 1.1em; color: #999">DMA数据转运</a> <a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 1.37em; color: #99a4b2">C语言</a> <a href="/tags/AD-DA%E8%BD%AC%E6%8D%A2/" style="font-size: 1.1em; color: #999">AD/DA转换</a> <a href="/tags/FPGA/" style="font-size: 1.1em; color: #999">FPGA</a> <a href="/tags/%E7%94%B5%E8%B5%9B/" style="font-size: 1.17em; color: #999c9f">电赛</a> <a href="/tags/%E6%BF%80%E5%85%89%E8%BF%BD%E8%B8%AA/" style="font-size: 1.1em; color: #999">激光追踪</a> <a href="/tags/PWM/" style="font-size: 1.1em; color: #999">PWM</a> <a href="/tags/%E5%A4%A7%E5%94%90%E6%9D%AF/" style="font-size: 1.1em; color: #999">大唐杯</a> <a href="/tags/IIC/" style="font-size: 1.1em; color: #999">IIC</a> <a href="/tags/Markdown/" style="font-size: 1.1em; color: #999">Markdown</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" style="font-size: 1.1em; color: #999">学习笔记,计算机视觉</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-PID%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">学习笔记,PID算法</a> <a href="/tags/%E8%BE%93%E5%85%A5%E6%8D%95%E8%8E%B7/" style="font-size: 1.17em; color: #999c9f">输入捕获</a> <a href="/tags/%E8%93%9D%E7%89%99/" style="font-size: 1.1em; color: #999">蓝牙</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" style="font-size: 1.1em; color: #999">学习笔记,深度学习</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 1.17em; color: #999c9f">博客</a> <a href="/tags/stm32%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 1.43em; color: #99a6b9">stm32单片机</a> <a href="/tags/%E8%93%9D%E6%A1%A5%E6%9D%AF/" style="font-size: 1.23em; color: #999ea6">蓝桥杯</a> <a href="/tags/OpenCV/" style="font-size: 1.1em; color: #999">OpenCV</a> <a href="/tags/5G/" style="font-size: 1.1em; color: #999">5G</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA%E5%AE%9A%E6%97%B6%E5%99%A8/" style="font-size: 1.17em; color: #999c9f">单片机定时器</a> <a href="/tags/%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 1.5em; color: #99a9bf">单片机</a> <a href="/tags/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1/" style="font-size: 1.1em; color: #999">串口通信</a> <a href="/tags/%E7%BC%96%E7%A8%8B/" style="font-size: 1.1em; color: #999">编程</a> <a href="/tags/Python/" style="font-size: 1.1em; color: #999">Python</a> <a href="/tags/HEXO/" style="font-size: 1.17em; color: #999c9f">HEXO</a> <a href="/tags/%E7%BA%A2%E5%A4%96%E9%80%9A%E4%BF%A1/" style="font-size: 1.1em; color: #999">红外通信</a> <a href="/tags/Git/" style="font-size: 1.1em; color: #999">Git</a> <a href="/tags/PIC%E5%8D%95%E7%89%87%E6%9C%BA/" style="font-size: 1.3em; color: #99a1ac">PIC单片机</a> <a href="/tags/Linux/" style="font-size: 1.1em; color: #999">Linux</a> <a href="/tags/GPIO/" style="font-size: 1.1em; color: #999">GPIO</a> <a href="/tags/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" style="font-size: 1.1em; color: #999">数学建模</a> <a href="/tags/%E4%B8%B2%E5%8F%A3/" style="font-size: 1.1em; color: #999">串口</a> <a href="/tags/Originbot/" style="font-size: 1.1em; color: #999">Originbot</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">九月 2024</span><span class="card-archive-list-count">5</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/08/"><span class="card-archive-list-date">八月 2024</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/07/"><span class="card-archive-list-date">七月 2024</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/06/"><span class="card-archive-list-date">六月 2024</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/05/"><span class="card-archive-list-date">五月 2024</span><span class="card-archive-list-count">8</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">6</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/03/"><span class="card-archive-list-date">三月 2024</span><span class="card-archive-list-count">11</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/02/"><span class="card-archive-list-date">二月 2024</span><span class="card-archive-list-count">20</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">65</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2023-10-21T15:59:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">93.1k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-09-13T10:20:49.103Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By Szturin</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://unpkg.com/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://unpkg.com/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: (str) => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: (subtitleType) => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        getScript('https://unpkg.com/typed.js/dist/typed.umd.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  }
+}
+</script><script>function subtitleType () {
+  if (true) {
+    typedJSFn.init(["人工智能、嵌入式软硬件开发","烟花许诺夜空，洒落繁星一片"])
+  } else {
+    document.getElementById("subtitle").textContent = "人工智能、嵌入式软硬件开发"
+  }
+}
+typedJSFn.run(subtitleType)</script></div><script id="click-heart" src="https://unpkg.com/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站采用多线程部署，主线路托管于腾讯云服务器，备用线路托管于Github/Gitee。" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/loading.gif" data-original="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script>
+        <style>
+            [bg-lazy] {
+                background-image: none !important;
+                background-color: #eee !important;
+            }
+        </style>
+        <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(r){r.imageLazyLoadSetting.processImages=t;var e=r.imageLazyLoadSetting.isSPA,n=r.imageLazyLoadSetting.preloadRatio||1,c=a();function a(){var t=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")),e=Array.prototype.slice.call(document.querySelectorAll("[bg-lazy]"));return t.concat(e)}function t(){e&&(c=a());for(var t,o=0;o<c.length;o++)0<=(t=(t=c[o]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(r.innerHeight*n||document.documentElement.clientHeight*n)&&function(){var t,e,n,a,i=c[o];e=function(){c=c.filter(function(t){return i!==t}),r.imageLazyLoadSetting.onImageLoaded&&r.imageLazyLoadSetting.onImageLoaded(i)},(t=i).hasAttribute("bg-lazy")?(t.removeAttribute("bg-lazy"),e&&e()):(n=new Image,a=t.getAttribute("data-original"),n.onload=function(){t.src=a,t.removeAttribute("data-original"),e&&e()},t.src!==a&&(n.src=a))}()}function i(){clearTimeout(t.tId),t.tId=setTimeout(t,500)}t(),document.addEventListener("scroll",i),r.addEventListener("resize",i),r.addEventListener("orientationchange",i)}(this);</script></body></html>

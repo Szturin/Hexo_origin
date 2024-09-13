@@ -1,5 +1,4 @@
 node_modules/
-public/
 .deploy_git/
 _config.landscape.yml
 package-lock.json
