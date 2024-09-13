@@ -1,8 +1,14 @@
 ---
-title: 【Git学习】[3]标签管理
+title: '【Git学习】[3]标签管理'
 top: false
 toc: true
 mathjax: false
+categories:
+  - - 学习笔记
+    - Git
+  - - 分布式系统
+  - - github
+abbrlink: 7213
 date: 2024-09-03 19:02:08
 author:
 img:
@@ -11,12 +17,6 @@ cover:
 password:
 summary:
 tags:
-categories:
-  - - 学习笔记
-    - Git
-  - - 分布式系统
-  - - github
-
 ---
 
 # 前言

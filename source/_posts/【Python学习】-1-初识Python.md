@@ -1,5 +1,5 @@
 ---
-title: '【Python学习】[1] 初识Python'
+title: '【Python学习】[1] Python基础'
 top: false
 toc: true
 mathjax: false
