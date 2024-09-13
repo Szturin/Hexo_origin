@@ -11,9 +11,6 @@
   "hexo": {
     "version": "6.3.0"
   },
-  "engines": {
-    "node": ">=12"
-  },
   "dependencies": {
     "@upupming/hexo-renderer-markdown-it-plus": "^2.0.2",
     "babel-preset-es2015": "^6.24.1",

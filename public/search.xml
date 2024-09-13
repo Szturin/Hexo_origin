@@ -603,15 +603,15 @@
           
           <category> 学习笔记 </category>
           
-          <category> Linux </category>
-          
-          <category> Ubuntu </category>
-          
           <category> ROS2 </category>
+          
+          <category> Linux </category>
           
           <category> RDK X3 </category>
           
           <category> 人工智能 </category>
+          
+          <category> Ubuntu </category>
           
           <category> ROS2 </category>
           
@@ -1796,13 +1796,13 @@
           
           <category> 学习笔记 </category>
           
-          <category> Linux </category>
-          
-          <category> Ubuntu </category>
-          
           <category> ROS </category>
           
+          <category> Linux </category>
+          
           <category> RDK X3 </category>
+          
+          <category> Ubuntu </category>
           
       </categories>
       
